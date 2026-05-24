@@ -15,3 +15,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/tylerstoen/wasted
+BugReports: https://github.com/tylerstoen/wasted/issues
