@@ -1,0 +1,40 @@
+---
+title: "main_functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{main_functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(wasted)
+```
+
+```{r}
+get_country_summary(plastics_data, country, year = NULL)
+```
+
+This function returns a tibble with key stats for a given country: total plastic, plastic per capita, GDP per capita, rank among all countries, and breakdown by plastic type. year defaults to both years if NULL.
+
+```{r}
+plot_continent_map(plastics_data, continent, year = NULL, per_capita = TRUE)
+```
+
+This function should render an interactive Leaflet map of recorded plastic waste, filtered to a single
+continent and zoomed to that region automatically.
+
+```{r}
+plot_gdp_vs_plastic(plastics_data, region = NULL, year = NULL, log_scale = TRUE)
+```
+
+This function renders a scatterplot of log-transformed total recorded plastic waste against GDP per
+capita, colored by world region. Useful for exploring whether wealthier countries tend
+to record more or less plastic waste, and how that relationship varies across continents.

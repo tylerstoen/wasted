@@ -1,0 +1,17 @@
+Package: wasted
+Title: wasted: for Plastic Waste Analysis
+Version: 0.0.0.9000
+Authors@R: 
+    person("Tyler", "Stoen", , "tyler.stoen@gmail.com", role = c("aut", "cre"))
+    person("Faran", "Igani", , "figani@calpoly.edu", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
+Imports: 
+    readr
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
