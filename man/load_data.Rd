@@ -7,11 +7,14 @@
 load_data()
 }
 \value{
-A dataframe containing the plastics data from tidytuesday.
+A tibble containing the merged plastics dataset with country-level
+geographic, population, and GDP variables.
 }
 \description{
-Load Plastics Data
+Loads the full merged plastics dataset including country-level geographic
+and economic data, pre-processed and bundled with the package.
 }
 \examples{
 data <- load_data()
+head(data)
 }

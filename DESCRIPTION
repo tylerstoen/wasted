@@ -4,12 +4,13 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Tyler", "Stoen", , "tyler.stoen@gmail.com", role = c("aut", "cre"))
     person("Faran", "Igani", , "figani@calpoly.edu", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: This package provides summaries and graphics related to plastic waste records from cleanups across the world. The package uses data provided by Sarah Suave via a blogpost titled *Break Free from Plastic*, published in a tidyteusday entry in 2021. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
 Imports: 
+    arrow,
     readr
 Suggests: 
     knitr,
