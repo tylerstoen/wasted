@@ -15,12 +15,18 @@ Imports:
     ggplot2,
     rlang,
     scales,
-    stringr
+    stringr,
+    tidyr,
+    purrr,
+    lme4,
+    gt,
+    broom.mixed
 Suggests: 
+    quarto,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
-VignetteBuilder: knitr
+VignetteBuilder: quarto
 URL: https://github.com/tylerstoen/wasted
 BugReports: https://github.com/tylerstoen/wasted/issues
 Config/testthat/edition: 3

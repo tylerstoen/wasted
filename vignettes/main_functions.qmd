@@ -1,9 +1,8 @@
 ---
-title: "main_functions"
-output: rmarkdown::html_vignette
+title: "Main Functions"
 vignette: >
-  %\VignetteIndexEntry{main_functions}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Main Functions}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -16,25 +15,134 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(wasted)
+data <- load_data()
+```
+
+## `compute_country_stats()`
+
+Aggregates the raw plastic waste data to the country level, computing totals,
+per capita figures, and global ranks. This is the foundation for the other
+summary functions.
+
+```{r}
+compute_country_stats(data)
+```
+
+You can optionally filter to a single year:
+
+```{r}
+compute_country_stats(data, year = 2019)
+```
+
+## `get_country_summary()`
+
+Returns a tibble with key statistics for a given country: total plastic waste,
+plastic per capita, GDP per capita, global ranks, and a breakdown by plastic
+type. If `year` is `NULL` both years are combined.
+
+```{r}
+get_country_summary(data, "Montenegro")
 ```
 
 ```{r}
-get_country_summary(plastics_data, country, year = NULL)
+get_country_summary(data, "Philippines", year = 2020)
 ```
 
-This function returns a tibble with key stats for a given country: total plastic, plastic per capita, GDP per capita, rank among all countries, and breakdown by plastic type. year defaults to both years if NULL.
+## `plot_plastic_vs_metric()`
+
+Renders a scatterplot of total recorded plastic waste against a chosen
+country-level metric (`gdp_per_capita` or `population`), colored by world
+region. Useful for exploring whether wealthier or more populous countries tend
+to record more plastic waste, and how that relationship varies across
+continents.
 
 ```{r}
-plot_continent_map(plastics_data, continent, year = NULL, per_capita = TRUE)
+plot_plastic_vs_metric(data)
 ```
 
-This function should render an interactive Leaflet map of recorded plastic waste, filtered to a single
-continent and zoomed to that region automatically.
+You can filter to a specific region or year using the `year` and `region` arguments. You may also switch both the metric (default `gdp_per_capita` with `population` as an alternative option), and whether the data is displayed on the logarithmic scale using `log_scale` (defaults to TRUE).
 
 ```{r}
-plot_gdp_vs_plastic(plastics_data, region = NULL, year = NULL, log_scale = TRUE)
+plot_plastic_vs_metric(data, metric = population, region = "Asia")
 ```
 
-This function renders a scatterplot of log-transformed total recorded plastic waste against GDP per
-capita, colored by world region. Useful for exploring whether wealthier countries tend
-to record more or less plastic waste, and how that relationship varies across continents.
+```{r}
+plot_plastic_vs_metric(data, metric = population, year = 2020, log_scale = FALSE)
+```
+
+## `plastic_type_summary()`
+
+Calculates the proportion of each plastic type out of the total recorded
+plastic waste. Both years are combined by default, but can be filtered
+using the optional `region` and `year` arguments.
+
+```{r}
+plastic_type_summary(data)
+```
+
+Optionally filter to a region and/or year using `region` and `year` arguments.
+
+```{r}
+plastic_type_summary(data, region = "Asia")
+```
+
+```{r}
+plastic_type_summary(data, year = 2020)
+```
+
+## `plastic_by_company()`
+
+Returns the top companies by total recorded plastic waste. Results can be
+filtered by region or year, and the number of companies returned controlled
+with `top_n` (defaults to 10).
+
+```{r}
+plastic_by_company(data)
+```
+
+
+Optionally filter to a region and/or year using `region` and `year` arguments.
+
+```{r}
+plastic_by_company(data, top_n = 5, region = "Europe")
+```
+
+```{r}
+plastic_by_company(data, year = 2019)
+```
+
+## `plot_plastic_by_company()`
+
+Creates a bar chart of the companies with the highest recorded plastic waste
+totals across all countries and all years available in the tidytuesday dataset.
+
+```{r}
+plot_plastic_by_company(data)
+```
+
+## `fit_plastic_lmer()`
+
+Fits a linear mixed effects model predicting log total plastic waste from log
+GDP per capita and world region, with a random intercept for country. Returns
+a formatted table of the fixed effects on region, log GDP per capita and their interaction.
+
+```{r}
+fit_plastic_lmer(data)
+```
+
+## Internal Validation Functions
+
+`validate_year()` and `validate_region()` are internal helper functions that
+are not exported. They are called automatically by the exported functions
+whenever a `year` or `region` argument is supplied, handling both input
+validation and filtering in one step.
+
+- `validate_year()` checks that `year` is one of `2019` or `2020` and filters
+  the data to matching rows.
+- `validate_region()` checks that `region` is one of `"Africa"`, `"Asia"`,
+  `"Americas"`, `"Europe"`, or `"Oceania"` and filters the data to matching
+  rows.
+
+If an invalid value is supplied, both functions will stop with an informative
+error message before any computation takes place.
+

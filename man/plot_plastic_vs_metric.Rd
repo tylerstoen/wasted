@@ -37,6 +37,6 @@ trend line.
 \examples{
 data <- load_data()
 plot_plastic_vs_metric(data)
-plot_plastic_vs_metric(data, metric = "population", region = "Asia")
-plot_plastic_vs_metric(data, metric = "gdp_per_capita", year = 2020)
+plot_plastic_vs_metric(data, metric = population, region = "Asia")
+plot_plastic_vs_metric(data, metric = gdp_per_capita, year = 2020)
 }

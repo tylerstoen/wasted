@@ -24,8 +24,8 @@
 #' @examples
 #' data <- load_data()
 #' plot_plastic_vs_metric(data)
-#' plot_plastic_vs_metric(data, metric = "population", region = "Asia")
-#' plot_plastic_vs_metric(data, metric = "gdp_per_capita", year = 2020)
+#' plot_plastic_vs_metric(data, metric = population, region = "Asia")
+#' plot_plastic_vs_metric(data, metric = gdp_per_capita, year = 2020)
 plot_plastic_vs_metric <- function(data,
                                    metric    = gdp_per_capita,
                                    region    = NULL,
@@ -41,8 +41,11 @@ plot_plastic_vs_metric <- function(data,
   plot_data <- compute_country_stats(data, year = year) |>
     dplyr::filter(!is.na(region), total_plastic > 0)
 
+  if (!is.null(year)) {
+    data <- validate_year(data, year)
+  }
   if (!is.null(region)) {
-    plot_data <- plot_data |> dplyr::filter(region == !!region)
+    data <- validate_region(data, region)
   }
 
   p <- plot_data |>

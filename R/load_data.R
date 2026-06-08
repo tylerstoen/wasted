@@ -15,9 +15,5 @@
 load_data <- function() {
   path <- system.file("extdata", "plastics_merged.parquet", package = "wasted")
 
-  if (path == "") {
-    stop("Could not find plastics_merged.parquet. Try reinstalling the package.")
-  }
-
   arrow::read_parquet(path)
 }

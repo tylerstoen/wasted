@@ -13,13 +13,13 @@
 #' @keywords internal
 #'
 #' @importFrom dplyr filter group_by summarise mutate desc
+#' @export
 compute_country_stats <- function(data, year = NULL) {
 
   yr <- year
 
   if (!is.null(yr)) {
-    data <- data |>
-      dplyr::filter(year == yr)
+    data <- validate_year(data, yr)
   }
 
   data |>

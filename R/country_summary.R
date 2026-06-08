@@ -30,7 +30,7 @@ get_country_summary <- function(data, country, year = NULL) {
     dplyr::filter(country == stringr::str_to_title(cntry))
 
   if (nrow(country_stats) == 0) {
-    stop(paste0("Country '", country, "' and/or year not found in the dataset."))
+    stop(paste0("Country '", country, "' not found in the dataset."))
   }
 
   plastic_breakdown <- data |>

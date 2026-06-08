@@ -21,5 +21,5 @@ test_that("filtering to country level works", {
   testthat::expect_equal(round(only_2020[[8, 4]], 0), 21478690)
 
   # check atypical year
-  testthat::expect_shape(compute_country_stats(dat, year = 1), dim = c(0,9))
+  testthat::expect_error(compute_country_stats(dat, year = 1))
 })
